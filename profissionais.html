@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Serviços e Profissionais - Bairro Resolve</title>
+    <link rel="stylesheet" href="estilo.css">
+    <style>
+        .lista-categorias-acordeao {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin-top: 20px;
+        }
+        .item-categoria-lista {
+            background: var(--branco);
+            border-radius: 12px;
+            box-shadow: var(--sombra);
+            border: 1px solid var(--borda);
+            overflow: hidden;
+            transition: border-color 0.2s ease;
+        }
+        .item-categoria-lista.aberto {
+            border-color: var(--cor-primaria);
+        }
+        .cabecalho-categoria-lista {
+            padding: 20px 28px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            background: var(--branco);
+            transition: background-color 0.2s ease;
+            gap: 16px;
+        }
+        .cabecalho-categoria-lista:hover {
+            background-color: var(--cor-fundo);
+        }
+        .info-esquerda-categoria {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        .info-direita-categoria {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            flex-shrink: 0;
+        }
+        .badge-quantidade {
+            background: #eff6ff;
+            color: var(--cor-primaria);
+            font-size: 0.85rem;
+            font-weight: 700;
+            padding: 6px 14px;
+            border-radius: 20px;
+        }
+        .seta-expansao {
+            font-size: 1.1rem;
+            color: var(--cor-texto-suave);
+            transition: transform 0.25s ease;
+        }
+        .item-categoria-lista.aberto .seta-expansao {
+            transform: rotate(180deg);
+            color: var(--cor-primaria);
+        }
+        .conteudo-trabalhadores-lista {
+            display: none;
+            padding: 24px 28px;
+            background-color: var(--cor-fundo-cinza);
+            border-top: 1px solid var(--borda);
+        }
+        .item-categoria-lista.aberto .conteudo-trabalhadores-lista {
+            display: block;
+        }
+        .grade-interna-trabalhadores {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+        .cabecalho-profissional {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 4px;
+        }
+        .selo-verificado {
+            background-color: #dcfce7;
+            color: #166534;
+            font-size: 0.78rem;
+            font-weight: 700;
+            padding: 3px 8px;
+            border-radius: 20px;
+        }
+        .nota-estrelas {
+            color: #d97706;
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+        .tags-especialidades {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            margin: 10px 0;
+        }
+        .tag-servico {
+            background-color: var(--cor-fundo-cinza);
+            color: var(--cor-texto);
+            font-size: 0.8rem;
+            padding: 4px 10px;
+            border-radius: 6px;
+            border: 1px solid var(--borda);
+        }
+        .coluna-acao-profissional {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 8px;
+            min-width: 170px;
+        }
+        .preco-estimado {
+            font-size: 0.85rem;
+            color: var(--cor-texto-suave);
+        }
+        .preco-estimado strong {
+            color: #1e293b;
+            font-size: 1.05rem;
+            display: block;
+        }
+        .modal-fundo {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 23, 42, 0.6);
+            z-index: 200;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .modal-caixa {
+            background: var(--branco);
+            max-width: 480px;
+            width: 100%;
+            padding: 32px;
+            border-radius: 12px;
+            box-shadow: var(--sombra);
+            position: relative;
+        }
+        .botao-fechar-modal {
+            position: absolute;
+            top: 16px;
+            right: 20px;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--cor-texto-suave);
+            cursor: pointer;
+        }
+        @media (max-width: 768px) {
+            .cabecalho-categoria-lista {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 18px 20px;
+            }
+            .info-direita-categoria {
+                width: 100%;
+                justify-content: space-between;
+                padding-top: 8px;
+                border-top: 1px solid var(--cor-fundo-cinza);
+            }
+            .conteudo-trabalhadores-lista {
+                padding: 16px;
+            }
+            .coluna-acao-profissional {
+                align-items: center;
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container container-navegacao">
+            <a href="index.html" class="logotipo" style="text-decoration: none;">
+                BAIRRO <span>Resolve</span>
+            </a>
+            <ul class="menu-navegacao">
+                <li><a href="index.html" class="link-menu">Início</a></li>
+                <li><a href="profissionais.html" class="link-menu" style="color: var(--cor-primaria); font-weight: 700;">Serviços</a></li>
+                <li><a href="index.html#como-funciona" class="link-menu">Como funciona</a></li>
+                <li><a href="index.html#sobre" class="link-menu">Sobre nós</a></li>
+            </ul>
+            <div class="acoes-navegacao" id="area-usuario">
+                <a href="login.html" class="botao botao-contorno">Entrar</a>
+                <a href="cadastro.html" class="botao botao-principal">Criar conta</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="espacamento-secao">
+        <div class="container">
+            <h1 class="titulo-secao" style="margin-bottom: 6px;">Serviços e Profissionais</h1>
+            <p class="subtitulo-secao" style="margin-bottom: 24px;">Clique em uma categoria da lista abaixo para abrir os trabalhadores disponíveis</p>
+
+            <div class="formulario-busca" style="margin-bottom: 24px; grid-template-columns: 1fr auto;">
+                <div class="grupo-campo">
+                    <input type="text" id="filtro-bairro-lista" class="campo-busca" oninput="filtrarPorBairroNaLista()" placeholder="Filtrar por bairro (Ex: Centro, Passo do Sabão, Santa Isabel)">
+                </div>
+                <button class="botao botao-principal" onclick="filtrarPorBairroNaLista()">Filtrar Bairro</button>
+            </div>
+
+            <div class="lista-categorias-acordeao" id="container-acordeao"></div>
+        </div>
+    </main>
+
+    <div id="modal-solicitacao" class="modal-fundo">
+        <div class="modal-caixa">
+            <button class="botao-fechar-modal" onclick="fecharSolicitacao()">&times;</button>
+            <h2 class="titulo-secao" style="font-size: 1.5rem;">Solicitar Serviço</h2>
+            <p class="subtitulo-secao" style="margin-bottom: 20px;">Profissional escolhido: <strong id="nome-profissional-modal" style="color: var(--cor-primaria);"></strong></p>
+
+            <div id="confirmacao-pedido" style="display: none; background: #dcfce7; color: #166534; padding: 16px; border-radius: 8px; margin-bottom: 16px; font-size: 0.95rem;">
+                <strong>Solicitação enviada!</strong> O profissional escolhido recebeu seu pedido e responderá em breve pela plataforma.
+            </div>
+
+            <form id="form-solicitacao" onsubmit="enviarSolicitacao(event)">
+                <div class="grupo-formulario">
+                    <label for="solicitante-nome">Seu nome</label>
+                    <input type="text" id="solicitante-nome" class="campo-formulario" placeholder="Digite seu nome" required>
+                </div>
+
+                <div class="grupo-formulario">
+                    <label for="solicitante-bairro">Seu bairro / endereço</label>
+                    <input type="text" id="solicitante-bairro" class="campo-formulario" placeholder="Ex: Passo do Sabão" required>
+                </div>
+
+                <div class="grupo-formulario">
+                    <label for="solicitante-data">Data preferencial</label>
+                    <input type="date" id="solicitante-data" class="campo-formulario" required>
+                </div>
+
+                <div class="grupo-formulario">
+                    <label for="solicitante-descricao">O que você precisa?</label>
+                    <textarea id="solicitante-descricao" class="campo-formulario" rows="3" placeholder="Descreva brevemente o serviço desejado..." required></textarea>
+                </div>
+
+                <button type="submit" class="botao botao-principal largura-total" style="padding: 12px; font-size: 1rem;">
+                    Confirmar Solicitação
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script src="sistema.js"></script>
+    <script>
+        const categoriasDados = [
+            {
+                id: 'Eletricista',
+                titulo: 'Eletricista',
+                descricao: 'Instalação de chuveiros, troca de disjuntores, tomadas, fiação e reparos elétricos.',
+                icone: `<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>`,
+                trabalhadores: [
+                    {
+                        nome: 'Carlos Silva',
+                        cargo: 'Eletricista Residencial',
+                        foto: 'imagens/icons/carlos.png',
+                        nota: '★ 4,9 (42 avaliações)',
+                        bairros: 'Centro e Passo do Sabão',
+                        experiencia: '8 anos de experiência',
+                        tags: ['Troca de chuveiro', 'Quadro de disjuntores', 'Tomadas'],
+                        depoimento: '"Chegou no horário combinado, trocou o quadro de disjuntores sem bagunça." — Fernanda Rocha',
+                        precoLabel: 'Visita técnica a partir de',
+                        precoValor: 'R$ 80,00'
+                    },
+                    {
+                        nome: 'Rafael Mendes',
+                        cargo: 'Eletricista Predial e Residencial',
+                        foto: 'imagens/icons/rafael.png',
+                        nota: '★ 4,8 (29 avaliações)',
+                        bairros: 'Santa Isabel, Centro e Tarumã',
+                        experiencia: '6 anos de experiência',
+                        tags: ['Iluminação LED', 'Instalação de ventilador', 'Curto-circuito'],
+                        depoimento: '"Resolveu uma queda de energia urgente no mesmo dia, super atencioso." — Lucas Martins',
+                        precoLabel: 'Visita técnica a partir de',
+                        precoValor: 'R$ 75,00'
+                    },
+                    {
+                        nome: 'Eduardo Nunes',
+                        cargo: 'Técnico em Elétrica e Automação',
+                        foto: 'imagens/icons/eduardo.png', 
+                        nota: '★ 5,0 (19 avaliações)',
+                        bairros: 'Passo do Sabão e Viamão',
+                        experiencia: '11 anos de experiência',
+                        tags: ['Padrão CEEE', 'Interfones', 'Revisão elétrica'],
+                        depoimento: '"Serviço impecável e muito seguro, recomendo de olhos fechados." — Andréia Souza',
+                        precoLabel: 'Visita técnica a partir de',
+                        precoValor: 'R$ 90,00'
+                    }
+                ]
+            },
+            {
+                id: 'Encanador',
+                titulo: 'Encanador',
+                descricao: 'Caça vazamentos, desentupimentos, troca de torneiras, registros e caixa d\'água.',
+                icone: `<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>`,
+                trabalhadores: [
+                    {
+                        nome: 'Mariana Souza',
+                        cargo: 'Encanadora Hidráulica',
+                        foto: 'imagens/icons/mariana.png',
+                        nota: '★ 5,0 (31 avaliações)',
+                        bairros: 'Centro, Viamão e região',
+                        experiencia: '6 anos de experiência',
+                        tags: ['Caça vazamentos', 'Torneiras e registros', 'Caixa d\'água'],
+                        depoimento: '"Resolveu um vazamento escondido na parede no mesmo dia e deixou tudo limpo." — Roberto Alves',
+                        precoLabel: 'Visita técnica a partir de',
+                        precoValor: 'R$ 90,00'
+                    },
+                    {
+                        nome: 'Jorge Pereira',
+                        cargo: 'Encanador e Desentupidor',
+                        foto: 'imagens/icons/jorge.png',
+                        nota: '★ 4,7 (36 avaliações)',
+                        bairros: 'Passo do Sabão e Santa Isabel',
+                        experiencia: '12 anos de experiência',
+                        tags: ['Desentupimento', 'Tubulação PVC', 'Vaso sanitário'],
+                        depoimento: '"Preço justo e resolveu o entupimento da pia em menos de 40 minutos." — Cláudia Dias',
+                        precoLabel: 'Visita técnica a partir de',
+                        precoValor: 'R$ 85,00'
+                    },
+                    {
+                        nome: 'Tiago Farias',
+                        cargo: 'Especialista Hidráulico',
+                        foto: 'imagens/icons/tiago.png',
+                        nota: '★ 4,9 (22 avaliações)',
+                        bairros: 'Centro e Tarumã',
+                        experiencia: '7 anos de experiência',
+                        tags: ['Aquecedor a gás', 'Troca de sifão', 'Reparos urgentes'],
+                        depoimento: '"Pontual e explicou exatamente qual peça precisava trocar." — Marcelo Gomes',
+                        precoLabel: 'Visita técnica a partir de',
+                        precoValor: 'R$ 80,00'
+                    }
+                ]
+            },
+            {
+                id: 'Pintor',
+                titulo: 'Pintor',
+                descricao: 'Pintura interna e externa, aplicação de massa corrida, texturas e acabamento.',
+                icone: `<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="16" height="6" x="2" y="2" rx="2"/><path d="M10 16v-2a2 2 0 0 1 2-2h8a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect width="4" height="6" x="8" y="16" rx="1"/></svg>`,
+                trabalhadores: [
+                    {
+                        nome: 'Marcos Oliveira',
+                        cargo: 'Pintor Residencial',
+                        foto: 'imagens/icons/marcos.png',
+                        nota: '★ 4,8 (27 avaliações)',
+                        bairros: 'Passo do Sabão e Santa Isabel',
+                        experiencia: '10 anos de experiência',
+                        tags: ['Pintura interna', 'Massa corrida', 'Textura e grafiato'],
+                        depoimento: '"Pintou todo o apartamento em 3 dias, protegeu os móveis com lona e não sujou nada." — Camila Mendes',
+                        precoLabel: 'Orçamento gratuito',
+                        precoValor: 'Sob consulta'
+                    },
+                    {
+                        nome: 'Leandro Castro',
+                        cargo: 'Pintor e Restaurador',
+                        foto: 'imagens/icons/leandro.png',
+                        nota: '★ 4,9 (34 avaliações)',
+                        bairros: 'Centro e Viamão',
+                        experiencia: '9 anos de experiência',
+                        tags: ['Fachadas', 'Portões e grades', 'Tratamento de umidade'],
+                        depoimento: '"Acabamento perfeito nas paredes da sala, ficou parecendo casa nova." — Renata Silva',
+                        precoLabel: 'Orçamento gratuito',
+                        precoValor: 'Sob consulta'
+                    },
+                    {
+                        nome: 'Sérgio Ramos',
+                        cargo: 'Pintor Profissional',
+                        foto: 'imagens/icons/sergio.png',
+                        nota: '★ 4,7 (18 avaliações)',
+                        bairros: 'Passo do Sabão e Tarumã',
+                        experiencia: '14 anos de experiência',
+                        tags: ['Pintura rápida', 'Verniz em madeira', 'Gesso'],
+                        depoimento: '"Cumpriu o prazo certinho e cobrou um valor muito justo." — Paulo Henrique',
+                        precoLabel: 'Orçamento gratuito',
+                        precoValor: 'Sob consulta'
+                    }
+                ]
+            },
+            {
+                id: 'Diarista',
+                titulo: 'Diarista',
+                descricao: 'Limpeza residencial completa, limpeza pós-obra e organização de ambientes.',
+                icone: `<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg>`,
+                trabalhadores: [
+                    {
+                        nome: 'Juliana Costa',
+                        cargo: 'Diarista e Organização',
+                        foto: 'imagens/icons/juliana.png',
+                        nota: '★ 4,9 (54 avaliações)',
+                        bairros: 'Centro, Passo do Sabão e Tarumã',
+                        experiencia: '5 anos de experiência',
+                        tags: ['Limpeza pesada', 'Pós-obra', 'Organização de armários'],
+                        depoimento: '"Super caprichosa, pontual e de total confiança. Já agendo quinzenalmente com ela." — Patrícia Lima',
+                        precoLabel: 'Diária completa a partir de',
+                        precoValor: 'R$ 160,00'
+                    },
+                    {
+                        nome: 'Aline Ferreira',
+                        cargo: 'Diarista Residencial',
+                        foto: 'imagens/icons/aline.png',
+                        nota: '★ 5,0 (41 avaliações)',
+                        bairros: 'Santa Isabel e Passo do Sabão',
+                        experiencia: '7 anos de experiência',
+                        tags: ['Limpeza padrão', 'Passadoria', 'Apartamentos e casas'],
+                        depoimento: '"Deixa tudo cheiroso e brilhando, muito cuidadosa com os objetos." — Beatriz Rocha',
+                        precoLabel: 'Diária completa a partir de',
+                        precoValor: 'R$ 150,00'
+                    },
+                    {
+                        nome: 'Camila Barbosa',
+                        cargo: 'Especialista em Limpeza',
+                        foto: 'imagens/icons/camila.png',
+                        nota: '★ 4,8 (25 avaliações)',
+                        bairros: 'Centro e Viamão',
+                        experiencia: '4 anos de experiência',
+                        tags: ['Limpeza de vidros', 'Faxina completa', 'Cozinha e banheiros'],
+                        depoimento: '"Muito ágil e educada, recomendo muito o trabalho dela." — Gustavo Almeida',
+                        precoLabel: 'Diária completa a partir de',
+                        precoValor: 'R$ 155,00'
+                    }
+                ]
+            }
+        ];
+
+        function renderizarListaCategorias(filtroBairro = '') {
+            const container = document.getElementById('container-acordeao');
+            const termo = filtroBairro.toLowerCase().trim();
+
+            container.innerHTML = categoriasDados.map(cat => {
+                const trabalhadoresFiltrados = cat.trabalhadores.filter(t =>
+                    t.bairros.toLowerCase().includes(termo)
+                );
+
+                const classeAberto = termo !== '' && trabalhadoresFiltrados.length > 0 ? 'aberto' : '';
+
+                const htmlTrabalhadores = trabalhadoresFiltrados.length > 0
+                    ? trabalhadoresFiltrados.map(prof => `
+                        <div class="cartao-profissional">
+                            <img src="${prof.foto}" alt="${prof.nome}" class="foto-profissional" style="background: #f1f5f9;">
+                            <div class="info-profissional">
+                                <div class="cabecalho-profissional">
+                                    <h3 style="margin: 0;">${prof.nome} • ${prof.cargo}</h3>
+                                    <span class="selo-verificado">✔ Verificado</span>
+                                    <span class="nota-estrelas">${prof.nota}</span>
+                                </div>
+                                <p class="texto-suave">Atende em: <strong>${prof.bairros}</strong> • ${prof.experiencia}</p>
+                                <div class="tags-especialidades">
+                                    ${prof.tags.map(tag => `<span class="tag-servico">${tag}</span>`).join('')}
+                                </div>
+                                <p class="comentario-cliente">${prof.depoimento}</p>
+                            </div>
+                            <div class="coluna-acao-profissional">
+                                <div class="preco-estimado text-center">
+                                    ${prof.precoLabel}
+                                    <strong>${prof.precoValor}</strong>
+                                </div>
+                                <button class="botao botao-principal largura-total" onclick="abrirSolicitacao('${prof.nome} (${cat.titulo})')">
+                                    Solicitar Serviço
+                                </button>
+                            </div>
+                        </div>
+                    `).join('')
+                    : `<p class="text-center" style="padding: 20px; color: var(--cor-texto-suave);">Nenhum profissional desta categoria atende no bairro "${filtroBairro}".</p>`;
+
+                return `
+                    <div class="item-categoria-lista ${classeAberto}" id="cat-${cat.id}">
+                        <div class="cabecalho-categoria-lista" onclick="alternarCategoria('${cat.id}')">
+                            <div class="info-esquerda-categoria">
+                                <div class="circulo-icone" style="margin: 0; width: 56px; height: 56px; flex-shrink: 0;">
+                                    ${cat.icone}
+                                </div>
+                                <div>
+                                    <h2 style="font-size: 1.25rem; margin-bottom: 4px; color: #1e293b;">${cat.titulo}</h2>
+                                    <p class="texto-suave" style="font-size: 0.92rem;">${cat.descricao}</p>
+                                </div>
+                            </div>
+                            <div class="info-direita-categoria">
+                                <span class="badge-quantidade">${trabalhadoresFiltrados.length} profissionais</span>
+                                <span class="seta-expansao">▼</span>
+                            </div>
+                        </div>
+                        <div class="conteudo-trabalhadores-lista">
+                            <div class="grade-interna-trabalhadores">
+                                ${htmlTrabalhadores}
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function alternarCategoria(id) {
+            const item = document.getElementById(`cat-${id}`);
+            if (item) {
+                item.classList.toggle('aberto');
+            }
+        }
+
+        function filtrarPorBairroNaLista() {
+            const bairro = document.getElementById('filtro-bairro-lista').value;
+            renderizarListaCategorias(bairro);
+        }
+
+        function abrirSolicitacao(profissional) {
+            document.getElementById('nome-profissional-modal').innerText = profissional;
+            document.getElementById('confirmacao-pedido').style.display = 'none';
+            document.getElementById('form-solicitacao').style.display = 'block';
+            document.getElementById('form-solicitacao').reset();
+
+            const usuarioLogado = JSON.parse(localStorage.getItem('usuarioLogado'));
+            if (usuarioLogado) {
+                document.getElementById('solicitante-nome').value = usuarioLogado.nome;
+            }
+
+            document.getElementById('modal-solicitacao').style.display = 'flex';
+        }
+
+        function fecharSolicitacao() {
+            document.getElementById('modal-solicitacao').style.display = 'none';
+        }
+
+        function enviarSolicitacao(event) {
+            event.preventDefault();
+            document.getElementById('form-solicitacao').style.display = 'none';
+            document.getElementById('confirmacao-pedido').style.display = 'block';
+        }
+
+        renderizarListaCategorias();
+
+        const paramsUrl = new URLSearchParams(window.location.search);
+        const servicoInicial = paramsUrl.get('servico');
+        if (servicoInicial) {
+            const itemAlvo = document.getElementById(`cat-${servicoInicial}`);
+            if (itemAlvo) {
+                itemAlvo.classList.add('aberto');
+                itemAlvo.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+    </script>
+</body>
+</html>

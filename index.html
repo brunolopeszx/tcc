@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bairro Resolve</title>
+    <link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+
+    <header>
+        <div class="container container-navegacao">
+            <div class="logotipo" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" style="cursor: pointer;">
+                BAIRRO <span>Resolve</span>
+            </div>
+            <ul class="menu-navegacao">
+                <li><a href="#inicio" class="link-menu">Início</a></li>
+                <li><a href="profissionais.html" class="link-menu">Serviços</a></li>
+                <li><a href="#como-funciona" class="link-menu">Como funciona</a></li>
+                <li><a href="#sobre" class="link-menu">Sobre nós</a></li>
+            </ul>
+            <div class="acoes-navegacao" id="area-usuario">
+                <a href="login.html" class="botao botao-contorno">Entrar</a>
+                <a href="cadastro.html" class="botao botao-principal">Criar conta</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section id="inicio">
+            <div class="destaque-principal">
+                <div class="container grade-destaque">
+                    <div>
+                        <h1 class="titulo-destaque">Encontre profissionais de confiança perto de você.</h1>
+                        <p class="subtitulo-destaque">Conectamos moradores a profissionais da região de forma rápida, simples e segura.</p>
+                        <div class="botoes-destaque">
+                            <a href="profissionais.html" class="botao botao-principal">Encontrar um profissional</a>
+                            <a href="cadastro.html" class="botao botao-secundario">Quero oferecer meus serviços</a>
+                        </div>
+                    </div>
+                    <div class="caixa-imagem-destaque">
+                        <img src="imagens/icons/capa.png" alt="Profissional do Bairro Resolve" class="foto-destaque">
+                    </div>
+                </div>
+            </div>
+
+            <div class="container espacamento-secao">
+                <div class="grade-confianca">
+                    <div class="item-confianca">
+                        <div class="icone-categoria">
+                            <img src="imagens/icons/1.png" alt="Segurança">
+                        </div>
+                        <h3>Profissionais avaliados</h3>
+                        <p class="texto-suave">Histórico e reputação checados</p>
+                    </div>
+                    <div class="item-confianca">
+                        <div class="icone-categoria">
+                            <img src="imagens/icons/8.png" alt="Avaliações">
+                        </div>
+                        <h3>Avaliações de clientes</h3>
+                        <p class="texto-suave">Opiniões reais da vizinhança</p>
+                    </div>
+                    <div class="item-confianca">
+                        <div class="icone-categoria">
+                            <img src="imagens/icons/7.png" alt="Perfil">
+                        </div>
+                        <h3>Informações completas</h3>
+                        <p class="texto-suave">Acesse portfólio e contatos</p>
+                    </div>
+                    <div class="item-confianca">
+                        <div class="icone-categoria">
+                            <img src="imagens/icons/6.png" alt="Localização">
+                        </div>
+                        <h3>Busca por localização</h3>
+                        <p class="texto-suave">Atendimento no seu próprio bairro</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="espacamento-secao secao-cinza">
+                <div class="container">
+                    <h2 class="titulo-secao text-center">Categorias Populares</h2>
+                    <p class="subtitulo-secao text-center">Encontre especialistas para cada tipo de necessidade</p>
+                    
+<div class="grade-categorias">
+    <!-- Eletricista -->
+    <div class="cartao-categoria" onclick="filtrarCategoria('Eletricista')">
+        <div class="circulo-icone">
+            <svg xmlns="http://w3.org" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+        </div>
+        <h3>Eletricista</h3>
+        <p class="texto-suave">Instalações e reparos</p>
+    </div>
+
+    <!-- Encanador -->
+    <div class="cartao-categoria" onclick="filtrarCategoria('Encanador')">
+        <div class="circulo-icone">
+            <svg xmlns="http://w3.org" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>
+        </div>
+        <h3>Encanador</h3>
+        <p class="texto-suave">Vazamentos e tubulações</p>
+    </div>
+
+    <!-- Pintor -->
+    <div class="cartao-categoria" onclick="filtrarCategoria('Pintor')">
+        <div class="circulo-icone">
+            <svg xmlns="http://w3.org" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="16" height="6" x="2" y="2" rx="2"/><path d="M10 16v-2a2 2 0 0 1 2-2h8a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect width="4" height="6" x="8" y="16" rx="1"/></svg>
+        </div>
+        <h3>Pintor</h3>
+        <p class="texto-suave">Pintura residencial e acabamento</p>
+    </div>
+
+    <!-- Diarista -->
+    <div class="cartao-categoria" onclick="filtrarCategoria('Diarista')">
+        <div class="circulo-icone">
+            <svg xmlns="http://w3.org" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg>
+        </div>
+        <h3>Diarista</h3>
+        <p class="texto-suave">Limpeza e organização</p>
+    </div>
+</div>
+
+                </div>
+            </div>
+        </section>
+
+        <section id="como-funciona" class="espacamento-secao">
+            <div class="container">
+                <h2 class="titulo-secao text-center">Como o Bairro Resolve Funciona</h2>
+                <p class="subtitulo-secao text-center">Simples, prático e direto ao ponto</p>
+                <div class="grade-passos">
+                    <div class="cartao-passo">
+                        <div class="numero-passo">1</div>
+                        <h3>Busque o serviço</h3>
+                        <p class="texto-suave">Escolha a categoria ou pesquise o profissional no seu bairro.</p>
+                    </div>
+                    <div class="cartao-passo">
+                        <div class="numero-passo">2</div>
+                        <h3>Compare perfis</h3>
+                        <p class="texto-suave">Veja avaliações, portfólio e compare perfis de confiança.</p>
+                    </div>
+                    <div class="cartao-passo">
+    <div class="numero-passo">3</div>
+    <h3>Resolva direto</h3>
+    <p class="texto-suave">Solicite um orçamento e combine o serviço diretamente pela plataforma.</p>
+</div>
+
+                </div>
+            </div>
+        </section>
+
+        <section id="sobre" class="espacamento-secao secao-cinza">
+            <div class="container">
+                <h2 class="titulo-secao">Sobre o Projeto</h2>
+                <div class="bloco-texto-sobre">
+                    <p class="texto-sobre">
+                        O <strong>Bairro Resolve</strong> é uma plataforma digital inovadora desenvolvida com o propósito fundamental de fortalecer a economia local e otimizar a conexão entre moradores que necessitam de soluções rápidas e prestadores de serviços qualificados atuantes na mesma região.
+                    </p>
+                    <p class="texto-sobre" style="margin-top: 15px;">
+                        Nossa missão central é facilitar de forma segura e transparente o acesso a serviços essenciais do cotidiano através da tecnologia, promovendo a valorização dos profissionais locais e gerando oportunidades de trabalho na comunidade.
+                    </p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="grade-rodape">
+                <div class="marca-rodape">
+                    <h2>BAIRRO Resolve</h2>
+                    <p>Conectando vizinhos e profissionais de confiança de forma simples e segura.</p>
+                </div>
+                <div class="links-rodape">
+                    <h4>Navegação</h4>
+                    <ul>
+                        <li><a href="#inicio">Início</a></li>
+                        <li><a href="profissionais.html">Serviços</a></li>
+                        <li><a href="#como-funciona">Como funciona</a></li>
+                    </ul>
+                </div>
+                <div class="links-rodape">
+                    <h4>Institucional</h4>
+                    <ul>
+                        <li><a href="#sobre">Sobre nós</a></li>
+                        <li><a href="cadastro.html">Cadastrar-se</a></li>
+                    </ul>
+                </div>
+                <div class="links-rodape">
+                    <h4>Contato</h4>
+                    <p>resolvebairro@gmail.com</p>
+                    <p>Viamão / Porto Alegre, RS</p>
+                </div>
+            </div>
+            <div class="rodape-inferior">
+                <p>&copy; 2026 Bairro Resolve - Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="sistema.js"></script>
+</body>
+</html>

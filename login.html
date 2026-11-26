@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Entrar - Bairro Resolve</title>
+    <link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+
+    <header>
+        <div class="container container-navegacao">
+            <a href="index.html" class="logotipo" style="text-decoration: none;">
+                BAIRRO <span>Resolve</span>
+            </a>
+            <div class="acoes-navegacao">
+                <a href="index.html" class="botao botao-contorno">← Voltar ao início</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="caixa-cadastro">
+            <h1 class="titulo-secao" style="font-size: 1.75rem;">Entrar na conta</h1>
+            <p class="subtitulo-secao" style="margin-bottom: 20px;">Acesse sua conta do Bairro Resolve.</p>
+
+          
+
+            <div id="mensagem-erro" style="display: none; background: #fee2e2; color: #b91c1c; padding: 12px; border-radius: 8px; margin-bottom: 16px; font-size: 0.9rem; font-weight: 500;">
+                E-mail ou senha incorretos. Verifique os dados ou crie uma conta.
+            </div>
+
+            <form id="form-login">
+                <div class="grupo-formulario">
+                    <label for="email">E-mail</label>
+                    <input type="email" id="email" class="campo-formulario" placeholder="seuemail@exemplo.com" required>
+                </div>
+
+                <div class="grupo-formulario">
+                    <label for="senha">Senha</label>
+                    <input type="password" id="senha" class="campo-formulario" placeholder="Digite sua senha" required>
+                </div>
+
+                <button type="submit" class="botao botao-principal largura-total" style="padding: 14px; font-size: 1rem;">
+                    Entrar
+                </button>
+            </form>
+
+            <p class="text-center" style="margin-top: 20px; font-size: 0.9rem; color: var(--cor-texto-suave);">
+                Ainda não tem conta? <a href="cadastro.html" style="color: var(--cor-primaria); font-weight: 600; text-decoration: none;">Cadastre-se</a>
+            </p>
+        </div>
+    </main>
+
+    <script src="sistema.js"></script>
+</body>
+</html>

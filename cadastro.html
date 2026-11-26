@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Criar Conta - Bairro Resolve</title>
+    <link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+
+    <header>
+        <div class="container container-navegacao">
+            <a href="index.html" class="logotipo" style="text-decoration: none;">
+                BAIRRO <span>Resolve</span>
+            </a>
+            <div class="acoes-navegacao">
+                <a href="index.html" class="botao botao-contorno">← Voltar ao início</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="caixa-cadastro">
+            <h1 class="titulo-secao" style="font-size: 1.75rem;">Crie sua conta</h1>
+            <p class="subtitulo-secao" style="margin-bottom: 24px;">Preencha seus dados para acessar os serviços do seu bairro.</p>
+
+            <form id="form-cadastro" action="https://staticforms.dev" method="POST">
+                <input type="hidden" name="apiKey" value="sf_4e2e4aca0f400e89fb05df71" />
+                <input type="hidden" name="subject" value="Novo Cadastro - Bairro Resolve" />
+                <input type="hidden" name="redirectTo" value="http://127.0.0" />
+
+                <div class="grupo-formulario">
+                    <label for="nome">Nome completo</label>
+                    <input type="text" id="nome" name="name" class="campo-formulario" placeholder="Ex: João da Silva" required>
+                </div>
+
+                <div class="grupo-formulario">
+                    <label for="email">E-mail</label>
+                    <input type="email" id="email" name="email" class="campo-formulario" placeholder="seuemail@exemplo.com" required>
+                </div>
+
+                <div class="grupo-formulario">
+                    <label for="telefone">WhatsApp / Telefone</label>
+                    <input type="tel" id="telefone" name="phone" class="campo-formulario" placeholder="(51) 99999-9999" required>
+                </div>
+
+                <div class="grupo-formulario">
+                    <label for="tipo">Quero me cadastrar como:</label>
+                    <select id="tipo" name="$tipo_usuario" class="campo-formulario" required>
+                        <option value="Cliente">Cliente (busco profissionais)</option>
+                        <option value="Profissional">Profissional (quero oferecer serviços)</option>
+                    </select>
+                </div>
+
+                <div class="grupo-formulario">
+                    <label for="bairro">Seu Bairro ou Região</label>
+                    <input type="text" id="bairro" name="message" class="campo-formulario" placeholder="Ex: Centro, Passo do Sabão..." required>
+                </div>
+
+                <div class="grupo-formulario">
+                    <label for="senha">Crie uma senha</label>
+                    <input type="password" id="senha" class="campo-formulario" placeholder="Mínimo 4 caracteres" minlength="4" required>
+                </div>
+
+                <button type="submit" class="botao botao-principal largura-total" style="padding: 14px; font-size: 1rem;">
+                    Finalizar Cadastro
+                </button>
+            </form>
+
+            <p class="text-center" style="margin-top: 20px; font-size: 0.9rem; color: var(--cor-texto-suave);">
+                Já tem uma conta? <a href="login.html" style="color: var(--cor-primaria); font-weight: 600; text-decoration: none;">Entrar</a>
+            </p>
+        </div> 
+    </main>
+
+    <script src="sistema.js"></script>
+</body>
+</html>
